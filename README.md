@@ -8,6 +8,37 @@ Every part of the status bar — separators, indicators and the content of each
 right-hand section — is driven by regular tmux options, so it can be tailored from
 `tmux.conf` without touching the plugin itself.
 
+## Screenshots
+
+Captured from a real tmux session with the default configuration — session name,
+window list, CPU and memory in section x, date and time in section y, and the
+hostname in section z. `nordfox` is the theme the plugin uses by default; the
+other families are shown with their default variant.
+
+**Nordfox** (default)
+
+![tmux status line using the nordfox theme](screenshots/nordfox.png)
+
+**Catppuccin**
+
+![tmux status line using the catppuccin theme](screenshots/catppuccin.png)
+
+**TokyoNight**
+
+![tmux status line using the tokyonight theme](screenshots/tokyonight.png)
+
+**Rosé Pine**
+
+![tmux status line using the rose-pine theme](screenshots/rose-pine.png)
+
+**Gruvbox**
+
+![tmux status line using the gruvbox theme](screenshots/gruvbox.png)
+
+Regenerate them with `python3 scripts/make-screenshots.py` (requires `pyte`,
+`fonttools`, `cairosvg` and a Nerd Font). Each theme is rendered in its own tmux
+server, so options never leak between captures.
+
 ## Layout
 
 ```
@@ -222,7 +253,9 @@ scripts/
   cpu.sh                 # CPU usage field
   memory.sh              # memory usage field
   battery.sh             # battery capacity field
+  make-screenshots.py    # renders the README screenshots from real tmux servers
 themes/                  # theme files and family-default symbolic links
+screenshots/             # README screenshots, one PNG per theme
 ```
 
 ## License
