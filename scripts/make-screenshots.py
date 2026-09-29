@@ -321,7 +321,7 @@ def reexec_with_demo_hostname():
         unshare,
         [unshare, "-Ur", "--uts", "bash", "-c",
          'hostname "$1"; shift; exec "$@"', "ns",
-         HOSTNAME, sys.executable, os.path.abspath(__file__)],
+         HOSTNAME, sys.executable, os.path.abspath(__file__), *sys.argv[1:]],
         env,
     )
 
@@ -329,10 +329,15 @@ def reexec_with_demo_hostname():
 def main():
     reexec_with_demo_hostname()
 
+    themes = sys.argv[1:] or THEMES
+    unknown = [t for t in themes if not (REPO / "themes" / f"{t}.conf").is_file()]
+    if unknown:
+        raise SystemExit(f"unknown theme(s): {', '.join(unknown)}")
+
     out_dir = REPO / "screenshots"
     out_dir.mkdir(exist_ok=True)
 
-    for index, theme in enumerate(THEMES):
+    for index, theme in enumerate(themes):
         colors = theme_colors(theme)
         screen = capture(theme, f"statusline-shot-{os.getpid()}-{index}")
         target = out_dir / f"{theme}.png"
