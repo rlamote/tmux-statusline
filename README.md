@@ -258,6 +258,24 @@ themes/                  # theme files and family-default symbolic links
 screenshots/             # README screenshots, one PNG per theme
 ```
 
+## Acknowledgements
+
+This plugin was inspired by:
+
+- [idossha/tmux-nightfox](https://github.com/idossha/tmux-nightfox) — Nightfox
+  colour themes for tmux
+- [binoymanoj/tmux-minimal-theme](https://github.com/binoymanoj/tmux-minimal-theme)
+  — a minimal, configurable tmux status bar
+
+Both are MIT-licensed.
+
+The bundled palettes come from the upstream colour schemes they are named after:
+[Nightfox](https://github.com/EdenEast/nightfox.nvim),
+[Catppuccin](https://github.com/catppuccin/catppuccin),
+[TokyoNight](https://github.com/folke/tokyonight.nvim),
+[Rosé Pine](https://github.com/rose-pine/neovim) and
+[Gruvbox Material](https://github.com/sainnhe/gruvbox-material).
+
 ## License
 
 [MIT](LICENSE)
