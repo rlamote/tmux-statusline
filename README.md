@@ -248,7 +248,7 @@ continues to work when the plugin directory moves.
 tmux-statusline.tmux     # TPM entry point: loads the theme, applies the status bar
 scripts/
   helpers.sh             # get_tmux_option, join_by
-  variables.sh           # load_theme
+  colorscheme.sh         # load_theme, colour overrides
   status.sh              # builds and applies every status-bar option
   cpu.sh                 # CPU usage field
   memory.sh              # memory usage field
