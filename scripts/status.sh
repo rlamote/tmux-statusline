@@ -1,7 +1,8 @@
 apply_statusline() {
     # Status bar setup
     tmux set-option -g status on
-    tmux set-option -g status-position bottom
+    local status_position="$(get_tmux_option "@tmux-statusline-position" "bottom")"
+    tmux set-option -g status-position "$status_position"
     tmux set-option -g status-interval 5
     tmux set-option -g status-justify left
 
@@ -76,13 +77,13 @@ apply_statusline() {
 
     local -a section_x_default_fields=()
     if option_enabled "$(get_tmux_option "@tmux-statusline-cpu-status" "on")"; then
-        section_x_default_fields+=("#($CURRENT_DIR/scripts/cpu.sh)")
+        section_x_default_fields+=("#($PLUGIN_DIR/scripts/cpu.sh)")
     fi
     if option_enabled "$(get_tmux_option "@tmux-statusline-memory-status" "on")"; then
-        section_x_default_fields+=("#($CURRENT_DIR/scripts/memory.sh)")
+        section_x_default_fields+=("#($PLUGIN_DIR/scripts/memory.sh)")
     fi
     if option_enabled "$(get_tmux_option "@tmux-statusline-battery-status" "off")"; then
-        section_x_default_fields+=("#($CURRENT_DIR/scripts/battery.sh)")
+        section_x_default_fields+=("#($PLUGIN_DIR/scripts/battery.sh)")
     fi
 
     local section_x_default=""

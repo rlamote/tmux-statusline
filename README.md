@@ -60,6 +60,7 @@ server, so options never leak between captures.
 
 - tmux 3.0 or newer
 - `bash` (the plugin scripts are sourced by TPM, which already uses bash)
+- `fzf` and tmux 3.2 or newer to use the interactive theme picker (optional)
 - A [Nerd Font](https://www.nerdfonts.com/) for the default separators and the
   CPU/memory icons. Without one, override the glyphs as shown in
   [Configuration](#configuration).
@@ -100,6 +101,7 @@ of TPM or of the plugin itself).
 | Option | Default | Description |
 | --- | --- | --- |
 | `@tmux-statusline-theme` | `nordfox` | Theme name, matching a file in `themes/` |
+| `@tmux-statusline-theme-picker-key` | unset | Optional key binding to open the theme picker (for example, `T` for `prefix + T`) |
 | `@tmux-statusline-section-separator-left` | `` (U+E0B0) | Separator between left-aligned sections |
 | `@tmux-statusline-section-separator-right` | `` (U+E0B2) | Separator between right-aligned sections |
 | `@tmux-statusline-field-separator-left` | `` (U+E0B1) | Separator between fields in left-aligned sections |
@@ -181,7 +183,20 @@ Switching every bundled field off has the same effect on section x.
 
 ## Themes
 
-Set one with `@tmux-statusline-theme`:
+Set a theme in `tmux.conf` with `@tmux-statusline-theme`, or use the interactive
+picker. The plugin registers the `tmux-statusline-theme` command; open the tmux
+command prompt with `prefix + :` and enter that command. The picker requires
+`fzf` and tmux 3.2 or newer. Optionally set
+`@tmux-statusline-theme-picker-key` to bind it to a key, such as `T` for
+`prefix + T`.
+
+The picker previews each theme and applies the focused theme for inspection.
+Press `Enter` to keep the selected theme, or `Esc` to restore the theme that was
+active before opening the picker. Choose **use config default** to clear the
+picker's saved choice and fall back to `@tmux-statusline-theme` (or `nordfox`).
+Picker selections are saved under
+`${XDG_STATE_HOME:-$HOME/.local/state}/tmux-statusline/theme` and take precedence
+over the configured theme until cleared.
 
 The family name selects its default variant, so `gruvbox` is sufficient unless you
 want a specific variant such as `gruvbox-dark-soft`.
@@ -248,7 +263,8 @@ continues to work when the plugin directory moves.
 tmux-statusline.tmux     # TPM entry point: loads the theme, applies the status bar
 scripts/
   helpers.sh             # get_tmux_option, join_by
-  colorscheme.sh         # load_theme, colour overrides
+  theme.sh               # load and apply themes, colour overrides, picker setup
+  theme-picker.sh        # interactive fzf theme picker
   status.sh              # builds and applies every status-bar option
   cpu.sh                 # CPU usage field
   memory.sh              # memory usage field
@@ -267,7 +283,8 @@ This plugin was inspired by:
 - [binoymanoj/tmux-minimal-theme](https://github.com/binoymanoj/tmux-minimal-theme)
   — a minimal, configurable tmux status bar
 
-Both are MIT-licensed.
+Both are MIT-licensed. The theme picker implementation is based on
+[jpinilloslr/tmux-statusline](https://github.com/jpinilloslr/tmux-statusline).
 
 The bundled palettes come from the upstream colour schemes they are named after:
 [Nightfox](https://github.com/EdenEast/nightfox.nvim),
